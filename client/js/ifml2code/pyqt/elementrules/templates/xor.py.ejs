@@ -1,0 +1,21 @@
+from PyQt4 import QtGui
+<% for (var i = 0; i < children.length; i++) { -%>
+import <%=children[i].id %> as C<%=i %>
+<% }
+   for (var i = 0; i < events.length; i++) { -%>
+import ../events/<%=events[i].id %> as E<%=i %>
+<% } -%>
+
+class Window(QtGui.QTabWidget):
+    def __init__(self,parent):
+        QtGui.QWidget.__init__(self,parent)
+
+<% for (var i = 0; i < children.length; i++) { -%>
+        tab = C<%=i %>.setupElem()
+        tab.setObjectName("<%=children[i].id %>")
+        self.addTab(tab)
+<% } -%>
+        layout=QtGui.QHBoxLayout()
+        self.setLayout(layout)
+
+        self.show()

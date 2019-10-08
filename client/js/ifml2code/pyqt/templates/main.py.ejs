@@ -1,0 +1,8 @@
+from PyQt4 import QtGui
+from lib.controls.mainapp import MainWindow
+import sys
+
+if __name__ == '__main__':
+    app = QtGui.QApplication(sys.argv)
+    GUI = MainWindow()
+    sys.exit(app.exec_())
