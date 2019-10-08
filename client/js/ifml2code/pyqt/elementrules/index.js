@@ -11,5 +11,4 @@ exports.rules = _([])
                 .concat(require('./viewcomponent').rules)
                 .concat(require('./navigationflow').rules)
                 .concat(require('./action').rules)
-                //.concat(require('./systemEvent').rules)
                 .value();

@@ -52,7 +52,7 @@ exports.rules = [
                 'lib': {isFolder: true, name: 'lib', children: ['controls', 'repositories', 'navigations', 'actions']},
                 'controls': {isFolder: true, name: 'controls', children: ['mainapp']},
                 'main': {name: 'main.py', content: require('./templates/main.py.ejs')()},
-                'mainapp': {name: 'mainapp.py', content: require('./templates/mainapp.py.ejs')({children: children, defaultChild: defaultChild, landmarks: landmarks})},
+                'mainapp': {name: 'mainapp.py', content: require('./templates/mainapp.py.ejs')({children: children, defaultChild: defaultChild, landmarks: landmarks, events: events, actions: actions})},
                 'repositories': {isFolder: true, name: 'repositories'},
                 'navigations': {isFolder: true, name: 'navigations'},
                 'actions': {isFolder: true, name: 'actions'}

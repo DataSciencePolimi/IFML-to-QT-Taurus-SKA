@@ -19,7 +19,7 @@ class Element(QWidget):
             label = QLabel()
             elemtext = elem["id"]
 <% for (var i = 0; i < fields.length; i += 1) { -%>
-            elemtext += ", " + elem["<%=fields[i] %>"])
+            elemtext += ", " + elem["<%=fields[i] %>"]
 <%     } -%>
             label.setText(elemtext)
             layout.addWidget(label)

@@ -25,6 +25,10 @@ class MainWindow(QMainWindow):
         # add stacked windows
         self.stack = QStackedWidget(self)
 
+        <% for (var property in events[0]['metadata']['graphics']['name']) { -%>
+        <%=property %> <%=events[0]['metadata']['graphics']['name'][property] %>
+        <% } -%>
+
         # add windows
 <% for (var i = 0; i < children.length; i++) {-%>
         self.childWindow<%=i %> = C<%=i %>(self)
@@ -38,7 +42,7 @@ class MainWindow(QMainWindow):
        # add events to change window from menu
 <% for (var i = 0; i < children.length; i++) {-%>
         windowAction<%=i %> = QAction("&<%=children[i] %>", self)
-        windowAction<%=i %>.triggered.connect(go_to_<%=children[i] %>)
+        windowAction<%=i %>.triggered.connect(self.go_to_<%=children[i] %>)
         self.fileMenu.addAction(windowAction<%=i %>)
 <% } -%>
 
