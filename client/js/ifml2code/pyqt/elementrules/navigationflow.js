@@ -38,11 +38,11 @@ exports.rules = [
                 obj = {
                     navigations: {children: 'E-' + id}
                 };
-            obj['E-' + id] = {name: id + '.js', content: require('./templates/navigation.js.ejs')({id: id, target: target, targetTop: targetTop, targetActives: targetActives, bindings: bindings})};
+            obj['E-' + id] = {name: id + '.py', content: require('./templates/navigation.py.ejs')({id: id, target: target, targetTop: targetTop, targetActives: targetActives, bindings: bindings})};
             return obj;
         }
     ),
-    createRule( // map element to action
+  createRule( // map element to action
         function (flow, model) {
             return model.isNavigationFlow(flow) &&
                    !model.isAction(model.getParent(model.getSource(flow))) &&
@@ -67,7 +67,7 @@ exports.rules = [
                 obj = {
                     navigations: {children: 'E-' + id}
                 };
-            obj['E-' + id] = {name: id + '.js', content: require('./templates/navigation-to-action.js.ejs')({id: id, containerId: containerId, target: target, bindings: bindings})};
+            obj['E-' + id] = {name: id + '.js', content: require('./templates/navigation-to-action.py.ejs')({id: id, containerId: containerId, target: target, bindings: bindings})};
             return obj;
         }
     )

@@ -28,13 +28,17 @@ class MainWindow(QMainWindow):
         # add windows
 <% for (var i = 0; i < children.length; i++) {-%>
         self.childWindow<%=i %> = C<%=i %>(self)
+<% for (var j = 0; j < events.length; j++) {
+        if (events[j].id == children[i]){ -%>
+        self.childWindow<%=i %>.link<%=j %>.set_link(self.go_to_<%=events[j].target %>)
+<%          } } -%>
         self.stack.addWidget(self.childWindow<%=i %>)
 <% } -%>
 
        # add events to change window from menu
 <% for (var i = 0; i < children.length; i++) {-%>
         windowAction<%=i %> = QAction("&<%=children[i] %>", self)
-        windowAction<%=i %>.triggered.connect(lambda: self.stack.setCurrentIndex(<%=i %>))
+        windowAction<%=i %>.triggered.connect(go_to_<%=children[i] %>)
         self.fileMenu.addAction(windowAction<%=i %>)
 <% } -%>
 
@@ -55,3 +59,9 @@ class MainWindow(QMainWindow):
 
     def close_application(self):
         sys.exit()
+
+<% for (var i = 0; i < children.length; i++) {-%>
+    def go_to_<%=children[i] %>(self):
+        self.stack.setCurrentIndex(<%=i %>)
+
+<% } -%>

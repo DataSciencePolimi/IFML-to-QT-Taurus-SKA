@@ -25,7 +25,7 @@ exports.rules = [
                 obj = {
                     actions: {children: 'A-' + id}
                 };
-            obj['A-' + id] = {name: id + '.js', content: require('./templates/action.js.ejs')({id: id, name: name, parameters: parameters, results: results, events: events})};
+            obj['A-' + id] = {name: id + '.py', content: require('./templates/action.py.ejs')({id: id, name: name, parameters: parameters, results: results, events: events})};
             return obj;
         }
     )
