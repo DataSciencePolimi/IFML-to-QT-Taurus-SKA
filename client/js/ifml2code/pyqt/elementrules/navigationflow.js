@@ -16,7 +16,7 @@ exports.rules = [
         },
         function (flow, model) {
             var event = model.getSource(flow),
-                id = model.toId(event).replace('/-/g', '_'),  // hyphen not allowed in Python names and imports
+                id = model.toId(event).replace(/-/g, "_"),  // hyphen not allowed in Python names and imports
                 target = model.getTargetId(flow),
                 targetTop = model.getTopLevelAncestorId(target),
                 targetActives = _.chain(model.getAncestors(target, true))

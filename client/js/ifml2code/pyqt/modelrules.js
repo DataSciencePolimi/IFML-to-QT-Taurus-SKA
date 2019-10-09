@@ -21,7 +21,7 @@ exports.rules = [
               events = _.chain(model.elements)
                   .filter(function (e) { return model.isEvent(e); })
                   .filter(function (e) { return model.getOutbounds(e).length; })
-                  .map(function(e) { return {id: e.id, source: model.getParentId(e), target: e.attributes.name}; })
+                  .map(function(e) { return {id: e.id.replace(/-/g, "_"), source: model.getParentId(e), target: e.attributes.name}; })
                   .value(),
               actions = _.chain(model.elements)
                   .filter(function (e) { return model.isAction(e); })
