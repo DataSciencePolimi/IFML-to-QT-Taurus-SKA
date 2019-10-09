@@ -1,0 +1,67 @@
+import sys
+from PyQt4.QtGui import QMainWindow, QWidget, QVBoxLayout, QStackedWidget, QAction, QPushButton
+
+# import other windows and actions as subwindow classes
+<% for (var i = 0; i < children.length; i++) { -%>
+from lib.controls.<%=children[i] %> import Window as C<%=i %>
+<% } -%>
+
+class MainWindow(QMainWindow):
+
+    # init main window
+    def __init__(self):
+        super(MainWindow, self).__init__()
+        self.setGeometry(100,100,700,600)
+        self.setWindowTitle("Main Application Window")
+
+        # define main menu
+        mainMenu = self.menuBar()
+        self.fileMenu = mainMenu.addMenu('&Menu')
+
+        # define central widget
+        centralWidget = QWidget()
+        centralLayout = QVBoxLayout()
+
+        # add stacked windows
+        self.stack = QStackedWidget(self)
+
+        # add windows and activate link buttons
+<% for (var i = 0; i < children.length; i++) {-%>
+        self.childWindow<%=i %> = C<%=i %>(self)
+<% for (var j = 0; j < events.length; j++) {
+        if (events[j].source == children[i]){ -%>
+        self.childWindow<%=i %>.link_<%=events[j].target %>.set_link(self.go_to_<%=events[j].target %>)
+<%          } } -%>
+        self.stack.addWidget(self.childWindow<%=i %>)
+<% } -%>
+
+       # add events to change window from menu
+<% for (var i = 0; i < children.length; i++) {-%>
+        windowAction<%=i %> = QAction("&<%=children[i] %>", self)
+        windowAction<%=i %>.triggered.connect(self.go_to_<%=children[i] %>)
+        self.fileMenu.addAction(windowAction<%=i %>)
+<% } -%>
+
+        # add close button to central widget
+        btn = QPushButton("Quit", self)
+        btn.clicked.connect(self.close_application)
+        btn.resize(btn.minimumSizeHint())
+        self.closeb = btn
+
+        centralLayout.addWidget(self.stack)
+        centralLayout.addWidget(self.closeb)
+
+        # set central widget for main window
+        centralWidget.setLayout(centralLayout)
+        self.setCentralWidget(centralWidget)
+
+        self.show()
+
+    def close_application(self):
+        sys.exit()
+
+<% for (var i = 0; i < children.length; i++) {-%>
+    def go_to_<%=children[i] %>(self):
+        self.stack.setCurrentIndex(<%=i %>)
+
+<% } -%>

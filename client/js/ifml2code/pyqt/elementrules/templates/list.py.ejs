@@ -1,0 +1,28 @@
+from PyQt4.QtGui import QWidget, QVBoxLayout, QLabel
+import json
+<% if (selection) { -%>
+import ../events/<%=selection.id %> as selected
+<% }
+   for (var i = 0; i < events.length; i++) { -%>
+import ../events/<%=events[i].id %> as E<%=i %>
+<% } -%>
+
+class Element(QWidget):
+
+    def __init__(self,parent):
+        QWidget.__init__(self,parent)
+        layout = QVBoxLayout()
+
+        # add elements to list from JSON default file
+        data = json.load(open("lib/repositories/<%=collection %>.json"))
+        for elem in data:
+            label = QLabel()
+            elemtext = elem["id"]
+<% for (var i = 0; i < fields.length; i += 1) { -%>
+            elemtext += ", " + elem["<%=fields[i] %>"]
+<%     } -%>
+            label.setText(elemtext)
+            layout.addWidget(label)
+
+        layout.addStretch(1)
+        self.setLayout(layout)
