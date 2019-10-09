@@ -20,7 +20,7 @@ class Window(QWidget):
         layout.addWidget(self.elem<%=i %>)
 <% }
    for (var i = 0; i < events.length; i++) { -%>
-        self.link<%=i %> = L<%=i %>(self)
-        layout.addWidget(self.link<%=i %>)
+        self.link_<%=events[i].name %> = L<%=i %>(self)
+        layout.addWidget(self.link_<%=events[i].name %>)
 <% } -%>
         self.setLayout(layout)

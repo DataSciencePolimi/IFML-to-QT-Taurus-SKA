@@ -4,7 +4,7 @@ class Link(QPushButton):
 
     def __init__(self, parent):
         QPushButton.__init__(self, parent)
-        self.setText(<%=target %>)
+        self.setText("<%=target %>")
 
     def set_link(self, go_to):
         self.clicked.connect(go_to)

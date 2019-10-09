@@ -17,15 +17,16 @@ exports.rules = [
           var controls = _.chain(model.elements)
                   .filter(function (e) { return model.isViewElement(e); })
                   .value(),
+              children = model.getTopLevels(),
               events = _.chain(model.elements)
                   .filter(function (e) { return model.isEvent(e); })
                   .filter(function (e) { return model.getOutbounds(e).length; })
+                  .map(function(e) { return {id: e.id, source: model.getParentId(e), target: e.attributes.name}; })
                   .value(),
               actions = _.chain(model.elements)
                   .filter(function (e) { return model.isAction(e); })
                   .filter(function (a) { return model.getInbounds(a).length; })
                   .value(),
-              children = model.getTopLevels(),
               defaultChild = _.chain(children)
                   .filter(function (id) { return model.isDefault(id); })
                   .first()
@@ -52,7 +53,7 @@ exports.rules = [
                 'lib': {isFolder: true, name: 'lib', children: ['controls', 'repositories', 'navigations', 'actions']},
                 'controls': {isFolder: true, name: 'controls', children: ['mainapp']},
                 'main': {name: 'main.py', content: require('./templates/main.py.ejs')()},
-                'mainapp': {name: 'mainapp.py', content: require('./templates/mainapp.py.ejs')({children: children, defaultChild: defaultChild, landmarks: landmarks, events: events, actions: actions})},
+                'mainapp': {name: 'mainapp.py', content: require('./templates/mainapp.py.ejs')({children: children, defaultChild: defaultChild, landmarks: landmarks, events: events})},
                 'repositories': {isFolder: true, name: 'repositories'},
                 'navigations': {isFolder: true, name: 'navigations'},
                 'actions': {isFolder: true, name: 'actions'}
